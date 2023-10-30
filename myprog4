@@ -1,13 +1,44 @@
 #!/bin/bash
 
 # Check if a filename argument is provided
-if [ $# -ne 1]; then
+if [ $# -ne 1 ]; then
     echo "Usage: $0 <filename>"
     exit 1
-fi 
+fi
 
 # Check if the file exists
-if [! -f "$1"]; then
+if [ ! -f "$1" ]; then
     echo "File not found: $1"
     exit 1
 fi
+
+# Define a function to replace numbers with text
+replace_numbers_with_text() {
+    local text=""
+    local char
+    while IFS= read -r -n 1 char; do
+        case $char in
+            0) text+="zero";;
+            1) text+="one";;
+            2) text+="two";;
+            3) text+="three";;
+            4) text+="four";;
+            5) text+="five";;
+            6) text+="six";;
+            7) text+="seven";;
+            8) text+="eight";;
+            9) text+="nine";;
+            *) text+="$char";;
+        esac
+    done
+    echo "$text"
+}
+
+# Replace numbers in the file and save the result to a temporary file
+temp_file=$(mktemp)
+replace_numbers_with_text < "$1" > "$temp_file"
+
+# Overwrite the original file with the modified content
+mv "$temp_file" "$1"
+
+echo "Numbers replaced with text in $1"

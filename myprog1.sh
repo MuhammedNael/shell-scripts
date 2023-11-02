@@ -1,7 +1,7 @@
-# This program will print a histogram distribution of numerical 
-# data of a file that contains numbers in between 0-9.
-
 #!/bin/bash
+
+# This program will print a histogram distribution of numerical
+# data of a file that contains numbers in between 0-9.
 
 # checks number of arguments variable
 if [ $# -ne 1 ]

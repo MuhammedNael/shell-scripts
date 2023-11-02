@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # This program will print a histogram distribution of numerical
-# data of a file that contains numbers in between 0-9.
+# data of a file that contains numbers between 0-9.
 
-# checks number of arguments variable
+# checks the value of arguments variable (if not equal to 1 exit the program))
 if [ $# -ne 1 ]
 then
         echo "You must pass a filename as an argument!"
@@ -12,13 +12,13 @@ then
 fi
 
 # declaring and initializing an array. Each element represents
-# the number of occurences of each number (0-9)
+# the number of occurrences of each number (0-9)
 numbers=(0 0 0 0 0 0 0 0 0 0)
 
 # reading the number at each line
 while read line
 do
-	# case statements to update the occurence of the number read by incrementing it
+	# case statements to update the occurrence of the number read by incrementing it
         case $line in
                 "0") numbers[0]=$((numbers[0] + 1));;
                 "1") numbers[1]=$((numbers[1] + 1));;
@@ -36,7 +36,7 @@ do
 # using input redirection to get the input from the file (that is the first argument $1)
 done < $1
 
-# a nested for loop to iterate through the numbers array and print asterisks according to the number of occurences stored
+# a nested for loop to iterate through the numbers array and print asterisks according to the number of occurrences stored
 for (( number = 0; number <= 9; number++ ))
 do
 	# -n option does not add a newline character

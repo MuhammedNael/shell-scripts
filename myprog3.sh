@@ -2,8 +2,13 @@
 
 # Set the directory path
 dir_path=""
+# If there is no any argument
 if [ -z $1 ]; then
 	dir_path=$(pwd)
+# If pathname is given from the root
+elif [[ "$1" == *"/"* ]]; then
+	dir_path="$1"
+# If pathname is given as directory
 else
 	dir_path="$(pwd)/$1"
 fi

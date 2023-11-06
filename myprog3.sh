@@ -33,6 +33,8 @@ if [ -n "$oldest_file" ]; then
   if [ "$decision" == "y" ]; then
     rm "$oldest_file"
     echo "1 file deleted"
+  elif [ "$decision" == "n" ]; then
+    echo "No file deleted" 
   fi
 else
   echo "There are no any files under the current directory."

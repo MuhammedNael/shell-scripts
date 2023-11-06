@@ -6,19 +6,39 @@
 
 # the recursive function
 recursive_copy() {
-    # copy that obeys the wildcard in the current directory into 'copied'
-    if [ ! -d "copied" ]
-    then
-        mkdir copied
-    fi
-    cp $wildcard copied
     
+    # set boolean for not making a directory if no file obeys the wildcard
+    obeys_wildcard=0
+    for file in $wildcard
+    do
+        if [ -e "$file" ] 
+        then
+            obeys_wildcard=1
+            break
+        fi
+    done
+
+    # make directory when obeying file exists
+    if [ $obeys_wildcard -eq 1 ]
+    then
+        if [ ! -d "copied" ]; then
+            mkdir copied
+        fi
+    fi
+    
+    # copy that obeys the wildcard in the current directory into the new directory 'copied'
+    for file in $wildcard
+    do
+        if [ -f "$file" ] 
+        then
+            cp "$file" copied
+        fi
+    done
     
     if [ "$option" != "-R" ]
     then 
         return
     fi
-    
     
     directories=()
     # store all files into this array for later to check each directory
@@ -50,6 +70,7 @@ recursive_copy() {
     do
         (cd "$dir" && recursive_copy)
     done
+    
 }
 
 # terminate if number of arguments is less than 1 or greater than 2
@@ -74,5 +95,4 @@ else
 fi
 
 recursive_copy
-
 
